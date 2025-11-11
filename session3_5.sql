@@ -1,0 +1,41 @@
+CREATE DATABASE TMDT;
+USE TMDT;
+
+CREATE TABLE KhachHang (
+    MaKH INT PRIMARY KEY,
+    TenKH VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL
+);
+CREATE TABLE DonHang (
+    MaDH INT PRIMARY KEY,
+    MaKH INT NOT NULL,
+    NgayDat DATE,
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH)
+);
+CREATE TABLE ChiTietDonHang (
+    MaDH INT NOT NULL,
+    MaSP INT NOT NULL,
+    SoLuong INT NOT NULL,
+    PRIMARY KEY (MaDH, MaSP),
+    FOREIGN KEY (MaDH) REFERENCES DonHang(MaDH),
+    FOREIGN KEY (MaSP) REFERENCES SAN_PHAM(MaSP)
+);
+
+INSERT INTO KhachHang (MaKH, TenKH, Email) VALUES 
+(1, 'Nguyen Van A', 'a@gmail.com'),
+(2, 'Tran Thi B', 'b@gmail.com');
+
+INSERT INTO DonHang (MaDH, MaKH, NgayDat)
+VALUES
+(101, 1, '2025-11-10'),
+(102, 2, '2025-11-11');
+
+INSERT INTO ChiTietDonHang (MaDH, MaSP, SoLuong) VALUES
+(101, 1, 1),
+(101, 2, 2),   
+(102, 2, 3); 
+
+SELECT * FROM KhachHang;
+SELECT * FROM SAN_PHAM;
+SELECT * FROM DonHang;
+SELECT * FROM ChiTietDonHang;
